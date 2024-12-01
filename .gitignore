@@ -1,0 +1,26 @@
+# rust output
+/target
+**/*.rs.bk
+/Cargo.lock
+
+# output files
+*.out
+*.log
+*.log.gz
+
+# private files
+src/bin/*/input*.txt
+src/bin/*/provided*.txt
+
+# private keys
+/keys/
+
+# core dumps
+/*core*
+/*.out.*
+
+# editors
+/.vscode/
+
+# temporary files
+/download
