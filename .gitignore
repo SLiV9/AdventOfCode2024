@@ -22,5 +22,8 @@ src/bin/*/provided*.txt
 # editors
 /.vscode/
 
+# input files
+/input
+
 # temporary files
 /download
