@@ -1,3 +1,4 @@
+mod day2;
 extern crate aoc_runner;
 
 #[macro_use]
@@ -6,5 +7,4 @@ extern crate crypto;
 
 pub mod day1;
 
-
-aoc_lib!{ year = 2024 }
+aoc_lib! { year = 2024 }
