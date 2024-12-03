@@ -1,15 +1,26 @@
 use aoc_runner_derive::aoc;
+use smallvec::SmallVec;
 
 #[aoc(day2, part1)]
 fn part1(input: &str) -> usize
 {
-	input.lines().filter(|x| !x.is_empty()).map(is_safe).filter(|&x| x).count()
+	input
+		.lines()
+		.filter(|x| !x.is_empty())
+		.map(is_safe)
+		.filter(|&x| x)
+		.count()
 }
 
 fn is_safe(line: &str) -> bool
 {
-    let line = line.trim();
-	let mut numbers = line.split(' ').map(|x| x.parse().unwrap());
+	let line = line.trim();
+	let numbers = line.split(' ').map(|x| x.parse().unwrap());
+	is_safe_impl(numbers)
+}
+
+
+fn is_safe_impl(mut numbers: impl Iterator<Item = u32>) -> bool {
 	let a: u32 = numbers.next().unwrap();
 	let b = numbers.next().unwrap();
 	if a < b
@@ -55,7 +66,25 @@ fn is_safe(line: &str) -> bool
 #[aoc(day2, part2)]
 fn part2(input: &str) -> usize
 {
-	todo!()
+	input
+		.lines()
+		.filter(|x| !x.is_empty())
+		.map(is_safe_with_dampener)
+		.filter(|&x| x)
+		.count()
+}
+
+fn is_safe_with_dampener(line: &str) -> bool
+{
+	let line = line.trim();
+	let numbers: SmallVec<[(usize, u32); 10]> = line.split(' ').map(|x| x.parse().unwrap()).enumerate().collect();
+	for i in 0..numbers.len() {
+		let numbers = numbers.iter().filter(|(j, _)| *j != i).map(|(_, x)| *x);
+		if is_safe_impl(numbers) {
+			return true;
+		}
+	}
+	false
 }
 
 #[cfg(test)]
@@ -76,16 +105,16 @@ mod tests
 		assert_eq!(part1(EXAMPLE), 2);
 	}
 
-    #[test]
-    fn part1_simple()
-    {
-        assert_eq!(part1("1 4"), 1);
-        assert_eq!(part1("1 5"), 0);
-    }
+	#[test]
+	fn part1_simple()
+	{
+		assert_eq!(part1("1 4"), 1);
+		assert_eq!(part1("1 5"), 0);
+	}
 
 	#[test]
 	fn part2_example()
 	{
-		assert_eq!(part2(EXAMPLE), 0);
+		assert_eq!(part2(EXAMPLE), 4);
 	}
 }
