@@ -19,8 +19,8 @@ fn is_safe(line: &str) -> bool
 	is_safe_impl(numbers)
 }
 
-
-fn is_safe_impl(mut numbers: impl Iterator<Item = u32>) -> bool {
+fn is_safe_impl(mut numbers: impl Iterator<Item = u32>) -> bool
+{
 	let a: u32 = numbers.next().unwrap();
 	let b = numbers.next().unwrap();
 	if a < b
@@ -77,10 +77,16 @@ fn part2(input: &str) -> usize
 fn is_safe_with_dampener(line: &str) -> bool
 {
 	let line = line.trim();
-	let numbers: SmallVec<[(usize, u32); 10]> = line.split(' ').map(|x| x.parse().unwrap()).enumerate().collect();
-	for i in 0..numbers.len() {
+	let numbers: SmallVec<[(usize, u32); 10]> = line
+		.split(' ')
+		.map(|x| x.parse().unwrap())
+		.enumerate()
+		.collect();
+	for i in 0..numbers.len()
+	{
 		let numbers = numbers.iter().filter(|(j, _)| *j != i).map(|(_, x)| *x);
-		if is_safe_impl(numbers) {
+		if is_safe_impl(numbers)
+		{
 			return true;
 		}
 	}
