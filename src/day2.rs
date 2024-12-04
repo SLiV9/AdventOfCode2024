@@ -2,7 +2,7 @@ use aoc_runner_derive::aoc;
 use smallvec::SmallVec;
 
 #[aoc(day2, part1)]
-fn part1(input: &str) -> usize
+pub fn part1(input: &str) -> usize
 {
 	input
 		.lines()
@@ -64,7 +64,7 @@ fn is_safe_impl(mut numbers: impl Iterator<Item = u32>) -> bool
 }
 
 #[aoc(day2, part2)]
-fn part2(input: &str) -> usize
+pub fn part2(input: &str) -> usize
 {
 	input
 		.lines()
